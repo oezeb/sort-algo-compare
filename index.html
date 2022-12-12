@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>排序可视化</title>
+  </head>
+  <body>
+    <h1 align="center">排序可视化</h1>
+    <h1 align="center">计算机科学与技术学院&nbsp; PL19215001&nbsp; Ezekiel B. Ouedraogo <br>
+    </h1>
+    <h2>1. 科学技术原理</h2>
+    <a href="resources/sortingalgorithm/insertion.html" style="font-weight: bold; font-size: large; font-size:large">Insertion Sort 插入排序</a><br><p>每次遍历时从无序数列中选择一个元素插入到有序数列中。重复该操作直到无序数列为空。</p>
+    <a href="resources/sortingalgorithm/selection.html" style="font-weight: bold; font-size: large;">Selection Sort 选择排序</a><br><p>每次遍历当前范围元素选择最小或最大值与当前范围的第一个元素交换位置。此后再在第一个元素之后的范围重复该操作。</p>
+    <a href="resources/sortingalgorithm/bubble.html" style="font-weight: bold; font-size: large;">Bubble Sort 冒泡排序</a><br><p>每次遍历的过程中对相邻元素两两比较，若该元素对为逆序则交换位置。重复该操作直到数列中不存在逆序对</p>
+    <a href="resources/sortingalgorithm/merge.html" style="font-weight: bold; font-size: large;">Merge Sort 归并排序</a><br><p>先将序列（递归地）分为两半分别排序最后将结果归并起来。</p>
+    <a href="resources/sortingalgorithm/quick.html" style="font-weight: bold; font-size: large;">Quick Sort 快速排序</a><br><p>选择一个基准元素,将待排序列分成两部分,一部分比基准元素小,一部分大于等于基准元素,此时基准元素在其排好序后的正确位置,然后再用同样的方法递归地排序划分的两部分。</p>
+    <a href="resources/sortingalgorithm/heap.html" style="font-weight: bold; font-size: large;">Heap Sort 堆排序</a><br><p>跟选择排序原理相同。因为当前范围为二叉堆选择最小或最大元素更快（二叉堆根节点的值最小或最大)。</p>
+    
+    <h2>2. 设计方案</h2>
+    <pre style="font-size: large;"><code>
+        class Main; //  程序入口
+        
+        package util;
+            class Anim; // 管理动画执行
+                class Data; // 提供动画类型（平移，着色，隐藏，。。。）和必要的数据。比如平移要提供起点，终点和时长。
+        
+            class SortAlgo;  // 包含了所有的排序算法的实现。各个算法执行后返回能在 “Anim” 上运行的 “Anim.Data” 的队列。
+                class Insetion;  // 实现插入排序
+                class Selection;  // 实现选择排序
+                class Bubble;  // 实现冒泡排序
+                class Merge;  // 实现归并排序
+                class Quick;  // 实现快速排序
+                class Heap;  // 实现堆排序
+        
+            class Constant; // 包含了一些不变量。
+                class ImageUrl; // 图像路径
+                class Color; // 常用颜色
+        
+            class Navigator; // 管理场景之间的切换
+        
+        package views;
+            class HomeView; // 主页界面
+                class Headear; // 由标题文本、Reset按钮和Spinner小部件组成
+        
+                class Body; // 演示按钮和Graph矩阵。
+        
+            class AlgoDetailsView; // 当前被选排序算法的细节
+                class Info; // 从 html 文档中读取并显示所选排序算法的一些细节。
+        
+                class Demo; // 包含数据可变的Graph小部件。
+        
+            package widgets;
+                class Graph; // 待排序数据的小部件。每个元素用一个长方形表示 、再加一个红三角形表示算法当前位置。
+        
+                class Spinner; // 用来控制动画速度的小部件。主要是控制平移的执行时间。
+        
+                class NumericTextField; // 数值字段。该小部件在Spinner和AlgoDetailsView中调用。
+        
+            package layouts;
+                class Center; // 用于将其子项与自身对齐
+        
+    </code></pre>
+    <div style="display: grid; grid-template-columns: auto auto; grid-gap: 10px;">
+        <div>
+            <div style="width:200px; padding:5px; font-size: large;"><strong>HomeView</strong></div>
+            <img src="resources/images/home_view.png" width="100%" alt="home-view"/>
+        </div>
+        <div>
+            <div style="width:200px; padding:5px; font-size: large;"><strong>AlgoDetailsView</strong></div>
+            <img src="resources/images/details_view.png" width="100%" alt="home-view"/>
+        </div>
+    </div>
+    <h2>3. 创新性描述</h2>
+    <ul>
+        <li><strong>原创性：</strong> 纯原创</li>
+        <li><strong>优点与特色：</strong>
+            <ul>
+                <li>实时通过Spinner调动画运行速(运行时也能调动画速)。</li>
+                <li>在AlgoDetailsView、动画执行时禁止更改Graph的数据。于是利用了多线程等待动画执行结束再允许改数据。</li>
+            </ul>
+        </li>
+    </ul>
+    </p>
+    <h2>4. 运行方法和参数设置</h2>
+    <ul>
+        <li><p><strong>运行方法</strong></p> 
+            <ul>
+                <li>Home View
+                    <ul>
+                        <li>点击任何Graph执行对应的数据和算法的动画。</li>
+                        <li>通过PLayAll按钮将全部Graph同时执行。</li>
+                        <li>通过各列（行）按钮同时执行对应的列（行）Graph。</li>
+                        <li>点击Reset按钮将全部Graph数据移回原位置。</li>
+                        <li>在代表各排序算法的按钮右上角、点击小按钮显示对应算法的AlgoDetailsView界面。</li>
+                    </ul>
+                </li>
+                <li>AlgoDetailsView
+                    <ul>
+                        <li>点击PLay按钮执行。</li>
+                        <li>点击Reset按钮将Graph数据移回原位置。</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li><p><strong>参数设置</strong></p>
+            <ul>
+                <li>通过Spinner右方的上下按钮或键盘的上下按钮调Spinner数值字段（调动画执行速度）。</li>
+                <li>在AlgoDetailsView通过Graph上面的数值字段改Graph中每个元素的值。</li>
+            </ul>
+        </li>
+    </ul>
+    <h2>5. 学习心得和收获</h2>
+    <p>本人有用Java语言开发安卓软件的经验、通过本课程主要学会了用JavaFx构建应用程序UI。</p>
+    <h2>参考资料</h2>
+    <p>
+        <a href="https://docs.oracle.com/javase/8/javafx/api/overview-summary.html">docs.oracle.com</a> JavaFx Api document<br>
+        <a href="https://stackoverflow.com/">StackOverflow</a>
+    </p>
+  </body>
+</html>
